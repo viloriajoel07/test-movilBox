@@ -3,7 +3,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 -----------------
-run command npm install or yarn dev
+## Run Command
+run command `npm install` or `yarn install`
 
 
 ## Available Scripts
