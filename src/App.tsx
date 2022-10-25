@@ -1,26 +1,40 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonCrud, Header, Input, Select, Table } from "./components";
-import { API_URL } from "./constants/config";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoading, setProfiles, setUsers } from "./app/slices/userSlice";
+import {
+  Button,
+  ButtonCrud,
+  Header,
+  Input,
+  SelectProfiles,
+  SelectStates,
+  Table,
+} from "./components";
+import { useSearch } from "./hooks/useSearch";
+import { userApi } from "./services/users.api";
 
 function App() {
-  const [profiles, setProfiles] = useState([{ id: 0, name: "Cargando..." }]);
-  const stateUser = [
-    {
-      id: 1,
-      name: "Activo",
-    },
-    {
-      id: 0,
-      name: "Inactivo",
-    },
-  ];
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch(
-      `http://pruebasclaro.movilbox.net:81/desarrollo/test_mbox/public/api/profiles`
-    )
-      .then((response) => response.json())
-      .then((data) => setProfiles(data.profiles));
+    dispatch(startLoading());
+    userApi.allUsers().then((data) => dispatch(setUsers(data.users)));
+    dispatch(startLoading());
+    userApi.profilesFind().then((data) => dispatch(setProfiles(data.profiles)));
   }, []);
+
+  const users = useSelector(({ users }: any) => users.users);
+
+  const {
+    userFiltered,
+    handleChangeName,
+    handleChangeEmail,
+    handleChangeProfiles,
+    handleChangeStates,
+    searchName,
+    searchEmail,
+    searchProfiles,
+    searchStates,
+  } = useSearch(users);
 
   return (
     <div className="p-4 bg-gray-100">
@@ -33,12 +47,34 @@ function App() {
           </Button>
         </div>
         <div className="flex gap-x-12 mb-4">
-          <Input labelText="Nombre" placeholder="Nombre del usuario" />
-          <Input labelText="Correo" placeholder="Correo electronico" />
+          <Input
+            labelText="Nombre"
+            name="name"
+            changeEvent={handleChangeName}
+            value={searchName}
+            placeholder="Nombre del usuario"
+          />
+          <Input
+            labelText="Correo"
+            name="email"
+            value={searchEmail}
+            changeEvent={handleChangeEmail}
+            placeholder="Correo electronico"
+          />
         </div>
         <div className="flex gap-x-12 mb-4">
-          <Select labelText="Perfil" list={profiles} />
-          <Select labelText="Estado" list={stateUser} />
+          <SelectProfiles
+            labelText="Perfil"
+            name="profiles"
+            value={searchProfiles}
+            changeEvent={handleChangeProfiles}
+          />
+          <SelectStates
+            labelText="Estado"
+            name="states"
+            value={searchStates}
+            changeEvent={handleChangeStates}
+          />
         </div>
       </section>
       <section className="bg-white w-full px-8 py-4 mt-4 rounded-xl">
@@ -47,14 +83,7 @@ function App() {
           <ButtonCrud option="create" />
         </div>
         <div className="flex flex-col items-end">
-          <div className="w-72 mb-2">
-            <Input
-              labelText="Buscar"
-              placeholder="Buscar usuario"
-              containerClass=""
-            />
-          </div>
-          <Table />
+          <Table filtered={userFiltered} />
         </div>
       </section>
     </div>

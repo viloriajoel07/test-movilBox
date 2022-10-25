@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-export const useOutsideClick = <T,>(onClickOutside: () => void) => {
+export const useOutsideClick = <T>(onClickOutside: () => void) => {
   const elementRef = useRef<T>(null);
 
   useEffect(() => {
@@ -10,9 +10,9 @@ export const useOutsideClick = <T,>(onClickOutside: () => void) => {
         onClickOutside();
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [onClickOutside]);
 

@@ -6,21 +6,34 @@ interface selectProps extends InputHTMLAttributes<HTMLSelectElement> {
   containerClass?: string;
   inputSelectClass?: string;
   labelText?: string;
-  list?: any;
+  changeEvent?: any;
   name?: string;
+  selected?: number;
   placeholder?: string;
   id?: string;
 }
 
-const SelectList: FC<selectProps> = ({
+const SelectStates: FC<selectProps> = ({
   containerClass,
   inputSelectClass,
   labelText,
   name,
-  list,
+  selected,
+  changeEvent,
   placeholder,
   id,
 }) => {
+  const stateUser = [
+    {
+      id: 1,
+      name: "Activo",
+    },
+    {
+      id: 0,
+      name: "Inactivo",
+    },
+  ];
+
   return (
     <div
       className={clsx(
@@ -34,20 +47,26 @@ const SelectList: FC<selectProps> = ({
       <select
         name={name}
         id={id}
+        onChange={changeEvent}
         className={clsx("outline-none", inputSelectClass)}
         placeholder={placeholder}
       >
+        {selected ? (
+          <option className="hidden">
+            {selected === 0 ? "Inactivo" : "Activo"}
+          </option>
+        ) : (
+          <option className="hidden">{labelText}</option>
+        )}
         <option className="hidden">{labelText}</option>
-        {list.map((profile: any) => {
-          return (
-            <option value={profile.id} key={profile.id}>
-              {profile.name}
-            </option>
-          );
-        })}
+        {stateUser.map((profile: { id: number; name: string }) => (
+          <option key={profile.id} value={profile.id}>
+            {profile.name}
+          </option>
+        ))}
       </select>
     </div>
   );
 };
 
-export default SelectList;
+export default SelectStates;

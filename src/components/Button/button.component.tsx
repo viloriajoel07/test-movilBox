@@ -16,6 +16,7 @@ const Button: FC<buttonProps> = ({
   buttonClass,
   children,
   event,
+  type,
   iconClass,
   ...props
 }) => {
@@ -28,6 +29,7 @@ const Button: FC<buttonProps> = ({
   return (
     <button
       className={clsx("flex items-center gap-x-2", buttonStyle, buttonClass)}
+      type={type}
       onClick={event}
     >
       {icon && <Icon icon={icon} className={clsx("w-6 h-6", iconClass)} />}

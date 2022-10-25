@@ -5,6 +5,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   containerClass?: string;
   inputClass?: string;
   labelText?: string;
+  changeEvent?: any;
 }
 
 const Input: FC<InputProps> = ({
@@ -12,7 +13,10 @@ const Input: FC<InputProps> = ({
   inputClass,
   labelText,
   placeholder,
-  type,
+  type = "text",
+  changeEvent,
+  value,
+  disabled,
   id,
   name,
   ...props
@@ -28,10 +32,13 @@ const Input: FC<InputProps> = ({
         {labelText}
       </label>
       <input
-        type="text"
+        type={type}
+        value={value}
         placeholder={placeholder}
+        onChange={changeEvent}
         id={id}
         name={name}
+        disabled={disabled && disabled}
         className={clsx("outline-none", inputClass)}
       />
     </div>
