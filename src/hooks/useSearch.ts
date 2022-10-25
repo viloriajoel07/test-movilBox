@@ -9,6 +9,8 @@ export const useSearch = (users = []) => {
   const cleanFilter = () => {
     setSearchName("");
     setSearchEmail("");
+    setSearchProfiles(undefined);
+    setSearchStates(undefined);
   };
 
   const handleChangeName = (e: any) => {
