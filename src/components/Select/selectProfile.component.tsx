@@ -1,7 +1,6 @@
-import React, { FC, InputHTMLAttributes, useEffect, useState } from "react";
-import { API_URL } from "../../constants/config";
-import clsx from "clsx";
+import { FC, InputHTMLAttributes } from "react";
 import { useSelector } from "react-redux";
+import clsx from "clsx";
 
 interface selectProps extends InputHTMLAttributes<HTMLSelectElement> {
   containerClass?: string;

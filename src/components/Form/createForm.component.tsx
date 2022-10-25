@@ -4,12 +4,16 @@ import { Input } from "../Input";
 import useForm from "../../hooks/useForm";
 import { userApi } from "../../services/users.api";
 import { SelectProfiles } from "../Select";
+import { useDispatch } from "react-redux";
+import { switchEvent } from "../../app/slices/userSlice";
 
 interface propsForm {
   closeModal: () => void;
 }
 
 const CreateForm: FC<propsForm> = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const { formData, handleChange } = useForm({
     name: "",
     email: "",
@@ -21,6 +25,8 @@ const CreateForm: FC<propsForm> = ({ closeModal }) => {
     userApi.createUser(formData).then((data) => {
       console.log(data);
     });
+    dispatch(switchEvent());
+    closeModal();
   };
 
   return (

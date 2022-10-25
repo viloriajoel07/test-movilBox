@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import Button from "./button.component";

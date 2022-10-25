@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { switchEvent } from "../../app/slices/userSlice";
 import { userApi } from "../../services/users.api";
 import { Button } from "../Button";
-import { Input } from "../Input";
 
 interface deleteFormProps {
   closeModal: () => void;
@@ -9,10 +10,11 @@ interface deleteFormProps {
 }
 
 const DeleteForm: FC<deleteFormProps> = ({ data, closeModal }) => {
-  console.log(data);
-
+  const dispatch = useDispatch();
   const handleDelete = () => {
     userApi.deleteUser({ id: data.id }).then((data) => console.log(data));
+    dispatch(switchEvent());
+    closeModal();
   };
 
   return (

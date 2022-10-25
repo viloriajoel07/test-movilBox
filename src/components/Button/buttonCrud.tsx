@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect } from "react";
-import { Button, Input } from "..";
+import { FC, useState } from "react";
+import { Button } from "..";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -10,8 +10,6 @@ import {
   DetailsForm,
   DeleteForm,
 } from "../Form";
-import useForm from "../../hooks/useForm";
-import { userApi } from "../../services/users.api";
 
 const style = {
   position: "absolute" as "absolute",
@@ -37,9 +35,15 @@ interface buttonProps {
   option: "create" | "update" | "view" | "delete";
   icon?: string;
   data?: any;
+  varianButton?: "default" | "fill" | "outline";
 }
 
-const ButtonCrud: FC<buttonProps> = ({ option, icon, data }) => {
+const ButtonCrud: FC<buttonProps> = ({
+  option,
+  icon,
+  data,
+  varianButton = "default",
+}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -66,7 +70,7 @@ const ButtonCrud: FC<buttonProps> = ({ option, icon, data }) => {
     },
     delete: {
       buttonText: "Elimiar",
-      header: <HeaderForm titleHeader="Ver usuario" setOpen={setOpen} />,
+      header: <HeaderForm titleHeader="Eliminar" setOpen={setOpen} />,
       body: <DeleteForm closeModal={handleClose} data={data} />,
     },
   }[option];
@@ -74,8 +78,8 @@ const ButtonCrud: FC<buttonProps> = ({ option, icon, data }) => {
   return (
     <div>
       <Button
-        variant="default"
-        buttonClass="hover:bg-gray-200 w-full"
+        variant={varianButton}
+        buttonClass="hover:bg-gray-500 w-full hover:text-white"
         icon={icon}
         event={() => {
           setOpen(true);

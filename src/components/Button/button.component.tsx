@@ -21,8 +21,8 @@ const Button: FC<buttonProps> = ({
   ...props
 }) => {
   const buttonStyle = {
-    fill: "bg-green-300 px-4 py-2 text-white rounded-lg",
-    outline: "border-2 px-4 py-2 text-gray-300 rounded-lg",
+    fill: "bg-green-400 px-4 py-2 text-white rounded-lg",
+    outline: "border-2 border-gray-400 px-4 py-2 text-gray-400 rounded-lg",
     default: "px-4 py-2",
   }[variant];
 

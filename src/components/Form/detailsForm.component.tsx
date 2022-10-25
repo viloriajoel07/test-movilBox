@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { userApi } from "../../services/users.api";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { SelectProfiles, SelectStates } from "../Select";
@@ -10,6 +9,9 @@ interface propsForm {
 }
 
 const DetailsForm: FC<propsForm> = ({ closeModal, data }) => {
+  const { updated_at } = data;
+  const date = updated_at.split("T")[0];
+
   return (
     <div className="gap-4 p-6">
       <Input
@@ -38,7 +40,7 @@ const DetailsForm: FC<propsForm> = ({ closeModal, data }) => {
       />
       <Input
         labelText="Fecha modificación"
-        value={data.updated_at}
+        value={date}
         placeholder="22/10/2022"
         disabled
       />

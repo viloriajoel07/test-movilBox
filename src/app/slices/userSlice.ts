@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface UserState {
   isLoading: boolean;
+  switchEvent: boolean;
   users: Array<{}>;
   profiles: Array<{ id: number; name: string }>;
 }
@@ -10,6 +11,7 @@ export const userSlice = createSlice({
   name: "users",
   initialState: {
     isLoading: false,
+    switchEvent: false,
     users: [],
     profiles: [],
   } as UserState,
@@ -25,31 +27,13 @@ export const userSlice = createSlice({
     startLoading: (state) => {
       state.isLoading = true;
     },
-    addUser: (state, action) => {
-      state.isLoading = true;
-      state.users = action.payload.users;
-    },
-    deleteUser: (state, action) => {
-      state.isLoading = true;
-      // const usersFound = state.users.filter(
-      //   (user) => user.profiles !== action.payload.profile
-      // );
-      // state.users = usersFound;
-    },
-    editUser: (state, action) => {
-      state.isLoading = true;
-      state.users = action.payload.users;
+    switchEvent: (state) => {
+      state.switchEvent = !state.switchEvent;
     },
   },
 });
 
-export const {
-  addUser,
-  deleteUser,
-  editUser,
-  startLoading,
-  setUsers,
-  setProfiles,
-} = userSlice.actions;
+export const { switchEvent, startLoading, setUsers, setProfiles } =
+  userSlice.actions;
 
 export default userSlice.reducer;

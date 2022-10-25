@@ -1,20 +1,18 @@
 import { FC } from "react";
 import { ButtonOption } from "../Button";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 
 interface rowProps {
   data?: any;
 }
 
 const Row: FC<rowProps> = ({ data }) => {
+  const { updated_at } = data;
+  const date = updated_at.split("T")[0];
+
   return (
     <>
       <td className="text-center">{data.id}</td>
       <td className="text-center font-bold flex items-center justify-center gap-x-3 py-1">
-        <span className="w-8 h-8 text-sm flex rounded-full items-center justify-center bg-green-100 text-green-400">
-          JD
-        </span>{" "}
         {data.name}
       </td>
       <td className="text-center">{data.email}</td>
@@ -36,7 +34,7 @@ const Row: FC<rowProps> = ({ data }) => {
           </span>
         )}
       </td>
-      <td className="text-center">{data.updated_at}</td>
+      <td className="text-center">{date}</td>
       <td className="text-center">
         <ButtonOption data={data} />
       </td>

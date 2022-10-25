@@ -6,6 +6,11 @@ export const useSearch = (users = []) => {
   const [searchProfiles, setSearchProfiles] = useState<number>();
   const [searchStates, setSearchStates] = useState<number>();
 
+  const cleanFilter = () => {
+    setSearchName("");
+    setSearchEmail("");
+  };
+
   const handleChangeName = (e: any) => {
     setSearchName(e.target.value);
   };
@@ -64,5 +69,6 @@ export const useSearch = (users = []) => {
     handleChangeEmail,
     handleChangeProfiles,
     handleChangeStates,
+    cleanFilter,
   };
 };

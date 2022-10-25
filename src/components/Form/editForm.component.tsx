@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { switchEvent } from "../../app/slices/userSlice";
 import useForm from "../../hooks/useForm";
 import { userApi } from "../../services/users.api";
 import { Button } from "../Button";
@@ -11,7 +13,7 @@ interface propsForm {
 }
 
 const EditForm: FC<propsForm> = ({ closeModal, data }) => {
-  console.log(data);
+  const dispatch = useDispatch();
 
   const { formData, handleChange } = useForm({
     name: data.name,
@@ -26,8 +28,9 @@ const EditForm: FC<propsForm> = ({ closeModal, data }) => {
       id: data.id,
       bData: formData,
     };
-    console.log(body);
     userApi.updateUser(body).then((data) => console.log(data));
+    dispatch(switchEvent());
+    closeModal();
   };
 
   return (

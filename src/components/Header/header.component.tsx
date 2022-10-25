@@ -2,9 +2,9 @@ import { Icon } from "@iconify/react";
 
 const Header = () => {
   return (
-    <header className="bg-green-300 w-full px-8 h-16 rounded-lg flex items-center justify-between">
+    <header className="bg-green-300 w-full px-8 py-6 rounded-lg flex items-center justify-between flex-col sm:flex-row">
       <h2 className="text-2xl font-bold text-white">Test MovilBox</h2>
-      <div className="flex gap-x-4 items-center">
+      <div className="flex gap-x-4 items-center ">
         <div className="flex gap-x-2 items-center text-white">
           <Icon icon={"twemoji:flag-spain"} />
           <p className="font-bold">Español</p>
